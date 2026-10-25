@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "title": "Sistem Pakar Rekomendasi Pemupukan Tanaman Cabai",
+    "version": "1.0",
+    "notice": "Aturan merupakan basis pengetahuan awal untuk demonstrasi akademik. Gejala visual tidak selalu berarti kekurangan unsur hara; verifikasi kondisi tanaman dan tanah diperlukan."
+  },
+  "phase_guidance": {
+    "Vegetatif": {
+      "source_id": "S3",
+      "guidance": "Pada fase vegetatif, evaluasi kebutuhan nitrogen untuk pertumbuhan tanaman. Gejala saja tidak memastikan kekurangan; ikuti hasil uji tanah, label pupuk, dan rekomendasi setempat."
+    },
+    "Generatif": {
+      "source_id": "S3",
+      "guidance": "Pada fase generatif, evaluasi keseimbangan hara untuk pembungaan dan buah. Sumber menyebut P dan K umumnya diberikan pada fase ini; hindari menambah N tanpa dasar karena dapat mendorong pertumbuhan vegetatif berlebih."
+    }
+  },
+  "sources": {
+    "S1": {
+      "title": "Teknologi Budidaya Cabai Merah",
+      "publisher": "Kementerian Pertanian Republik Indonesia",
+      "url": "https://repository.pertanian.go.id/bitstreams/efe030a2-b074-4585-9353-91aa14159f05/download",
+      "scope": "Referensi konteks budidaya cabai; bukan satu-satunya dasar untuk menetapkan diagnosis gejala."
+    },
+    "S2": {
+      "title": "Unsur Hara dan Gejala Defisiensi",
+      "publisher": "Kementerian Pertanian Republik Indonesia",
+      "url": "https://repository.pertanian.go.id/server/api/core/bitstreams/589c2d80-9cc0-4935-8a20-de54b860aeaf/content",
+      "scope": "Rujukan awal untuk hubungan gejala dengan kemungkinan defisiensi pada R01-R10. Cocokkan kembali setiap aturan dengan isi dan halaman dokumen sebelum laporan final."
+    },
+    "S3": {
+      "title": "Pemupukan Tepat Dosis dan Tepat Waktu: Kunci Panen Optimal",
+      "publisher": "Pustaka BPPSDMP Kementerian Pertanian",
+      "published": "20 Februari 2026",
+      "url": "https://pustaka.bppsdmp.pertanian.go.id/info-literasi/info-literasi-pemupukan-tepat-dosis-dan-tepat-waktu-kunci-panen-optimal",
+      "scope": "Mendukung panduan pemupukan menurut fase dan anjuran mengikuti kebutuhan tanaman, dosis, serta waktu aplikasi; bukan bukti untuk diagnosis gejala spesifik."
+    }
+  },
+  "rule_sources": {
+    "R01": ["S2"], "R02": ["S2"], "R03": ["S2"], "R04": ["S2"], "R05": ["S2"],
+    "R06": ["S2"], "R07": ["S2"], "R08": ["S2"], "R09": ["S2"], "R10": ["S2"]
+  },
+  "symptoms": {
+    "daun_tua_menguning": {"label": "Daun yang lebih tua menguning", "why": "Daun tua menguning dapat menjadi petunjuk awal kekurangan nitrogen, tetapi dapat juga disebabkan faktor lain."},
+    "daun_pucat": {"label": "Warna daun tampak pucat", "why": "Warna daun pucat membantu menilai kemungkinan gangguan nutrisi atau kondisi akar."},
+    "pertumbuhan_lambat": {"label": "Pertumbuhan tanaman lambat", "why": "Pertumbuhan lambat dapat berkaitan dengan ketersediaan hara, air, akar, atau kondisi lingkungan."},
+    "daun_keunguan": {"label": "Daun atau bagian tanaman tampak keunguan", "why": "Warna keunguan bisa terkait ketersediaan fosfor, terutama bila disertai pertumbuhan lambat; gejala ini tidak spesifik."},
+    "pembungaan_terlambat": {"label": "Pembungaan terlambat", "why": "Pembungaan terlambat dapat berhubungan dengan banyak faktor, termasuk ketidakseimbangan nutrisi."},
+    "tepi_daun_menguning": {"label": "Tepi daun menguning", "why": "Perubahan warna di tepi daun dapat menjadi petunjuk masalah kalium, tetapi perlu dibedakan dari kekeringan atau kerusakan lain."},
+    "tepi_daun_cokelat": {"label": "Tepi daun mengering atau kecokelatan", "why": "Tepi daun yang mengering dapat berkaitan dengan kalium, tetapi juga dapat disebabkan stres air atau salinitas."},
+    "daun_tua_kuning_antar_tulang": {"label": "Bagian di antara tulang daun tua menguning", "why": "Pola menguning di antara tulang daun tua dapat menjadi petunjuk kemungkinan kekurangan magnesium."},
+    "daun_muda_kuning_antar_tulang": {"label": "Bagian di antara tulang daun muda menguning, tulang daun tetap hijau", "why": "Pola pada daun muda ini dapat menjadi petunjuk kemungkinan kekurangan zat besi atau gangguan penyerapan hara."},
+    "daun_muda_keriting": {"label": "Daun muda berubah bentuk atau keriting", "why": "Perubahan daun muda dapat berkaitan dengan beberapa gangguan, termasuk nutrisi, hama, atau penyakit; diagnosis ini harus diverifikasi."}
+  },
+  "rules": [
+    {"id": "R01", "if": ["daun_tua_menguning"], "then": "DEF_N", "nutrient": "Nitrogen (N)", "cf": 0.70, "recommendation": "Evaluasi kecukupan nitrogen dan pertumbuhan vegetatif. Gunakan pupuk sumber N hanya sesuai kebutuhan tanaman, petunjuk label, dan rekomendasi penyuluh atau hasil uji tanah."},
+    {"id": "R02", "if": ["daun_pucat"], "then": "DEF_N", "nutrient": "Nitrogen (N)", "cf": 0.55, "recommendation": "Evaluasi kecukupan nitrogen dan pertumbuhan vegetatif. Gunakan pupuk sumber N hanya sesuai kebutuhan tanaman, petunjuk label, dan rekomendasi penyuluh atau hasil uji tanah."},
+    {"id": "R03", "if": ["pertumbuhan_lambat"], "then": "DEF_N", "nutrient": "Nitrogen (N)", "cf": 0.40, "recommendation": "Evaluasi kecukupan nitrogen dan pertumbuhan vegetatif. Pertumbuhan lambat juga dapat disebabkan air, akar, cahaya, hama, atau penyakit."},
+    {"id": "R04", "if": ["daun_keunguan", "pertumbuhan_lambat"], "then": "DEF_P", "nutrient": "Fosfor (P)", "cf": 0.78, "recommendation": "Periksa ketersediaan fosfor dan kondisi pH tanah. Pemupukan fosfor perlu mengikuti hasil uji tanah atau rekomendasi lokal."},
+    {"id": "R05", "if": ["pembungaan_terlambat"], "then": "DEF_P", "nutrient": "Fosfor (P)", "cf": 0.48, "recommendation": "Periksa fase tanaman, cahaya, suhu, dan ketersediaan fosfor. Pembungaan terlambat tidak cukup untuk memastikan kekurangan fosfor."},
+    {"id": "R06", "if": ["tepi_daun_menguning"], "then": "DEF_K", "nutrient": "Kalium (K)", "cf": 0.65, "recommendation": "Evaluasi kecukupan kalium dan pengelolaan air. Hindari penambahan pupuk secara berlebihan tanpa pemeriksaan kondisi lahan."},
+    {"id": "R07", "if": ["tepi_daun_cokelat"], "then": "DEF_K", "nutrient": "Kalium (K)", "cf": 0.68, "recommendation": "Periksa kecukupan kalium serta kemungkinan stres air atau salinitas. Konfirmasi sebelum menambah pupuk."},
+    {"id": "R08", "if": ["daun_tua_kuning_antar_tulang"], "then": "DEF_MG", "nutrient": "Magnesium (Mg)", "cf": 0.76, "recommendation": "Periksa kemungkinan kekurangan magnesium dan keseimbangan hara lain. Pilih bahan dan dosis setelah verifikasi kondisi tanah."},
+    {"id": "R09", "if": ["daun_muda_kuning_antar_tulang"], "then": "DEF_FE", "nutrient": "Besi (Fe)", "cf": 0.78, "recommendation": "Periksa pH tanah, drainase, dan kemungkinan gangguan penyerapan besi. Gejala serupa dapat memiliki penyebab lain."},
+    {"id": "R10", "if": ["daun_muda_keriting"], "then": "CHECK_CA", "nutrient": "Kemungkinan gangguan kalsium atau faktor lain", "cf": 0.40, "recommendation": "Jangan langsung menyimpulkan kekurangan kalsium. Periksa kelembapan yang stabil, akar, hama, dan penyakit; minta verifikasi penyuluh bila gejala berlanjut."}
+  ]
+}
